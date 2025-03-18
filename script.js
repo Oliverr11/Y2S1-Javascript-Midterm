@@ -31,9 +31,14 @@ function displayMovies() {
         movie.title
       }"/>
         <div class="details">
-            <p>${movie.media_type}</p>
+            <span>${movie.media_type}</span>
             <h2>${movie.title}</h2>
-            <p>${movie.release_date.substring(0, 4)}</p>
+            <div>
+              <p>${movie.release_date.substring(0, 4)}</p>
+              <p>Rating : ${movie.vote_average}</p>
+              <p>Review : ${movie.vote_count}</p>
+            </div>
+
             <button class="detail-btn" data-id=${movie.id}>Details</button>
         </div>
       </div>
@@ -56,22 +61,31 @@ function fetchMovieDetail(id) {
       response.ok ? response.json() : console.error("Fetching Error!")
     )
     .then((data) => {
-      console.log(data);
       genres = data.genres.map((genre) => genre.name).join(" , ");
       fetch(
         `https://api.themoviedb.org/3/movie/${id}/credits?api_key=${API_KEY}`
       )
-        .then((response2) => {
-          console.log("data2 id : " + id);
-
-          response2.ok ? response2.json() : console.log("Fetching Error!");
-        })
+        .then((response2) =>
+          response2.ok ? response2.json() : console.log("Fetching Error!")
+        )
         .then((data2) => {
-          // const director = data.crew.find(
-          //   (person) => person.job === "Director"
-          // );
-        
+          const directors = data2.crew.filter(
+            (person) => person.job === "Director"
+          );
+          const directorName = directors
+            .map((director) => director.name)
+            .join(" , ");
 
+          const topTenActor = data2.cast.slice(0, 10);
+          const topTenActorsString = topTenActor
+            .map((actor) => `${actor.name} ( ${actor.character} )`)
+            .join(" , ");
+
+          const writer = data2.crew.filter((person) => person.job === "Writer");
+          let Wrtiers;
+          Wrtiers = writer.map((writer) => `${writer.name}`).join(" , ");
+          if (writer == "") Wrtiers = "Writer not found in this API!";
+          info.style.display = "flex";
           info.innerHTML = `
           <img
           src="https://image.tmdb.org/t/p/w500/${data.poster_path}"
@@ -87,14 +101,11 @@ function fetchMovieDetail(id) {
           <p><span>Country:</span></p>
           <p>${data.origin_country}</p>
           <p><span>Director:</span></p>
-          <p></p>
+          <p>${directorName}</p>
           <p><span>Writer:</span></p>
-          <p>
-            Laura Terruso (screenplay), Michael Showalter (screenplay), Laura
-            Terruso (short film "Doris & the Intern")
-          </p>
+          <p>${Wrtiers}</p>
           <p><span>Actors:</span></p>
-          <p>Sally Field, Edmund Lupinski, Norma Michaels, Stephen Root</p>
+          <p>${topTenActorsString}</p>
           <p><span>Awards:</span></p>
           <p>2 wins & 10 nominations</p>
         </div>
