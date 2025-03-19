@@ -1,12 +1,15 @@
 const API_KEY = "3e22ff3c3d485684d4ef358a6fe96f04";
 let movieImage = [];
-const imgContainer = document.getElementById("img-container");
+const imgContainer = document.getElementById("movieDisplay");
 const paginationElement = document.getElementById("pagination");
 let currentPage = 1;
 const rows = 3;
 const prevoiusButton = document.getElementById("prevoius");
 const nextButton = document.getElementById("next");
+const searchBtn = document.getElementById("searchBtn");
+
 let info = document.getElementById("info");
+
 fetch(`https://api.themoviedb.org/3/trending/movie/day?api_key=${API_KEY}`)
   .then((response) =>
     response.ok ? response.json() : console.error("Fetching Error!")
@@ -27,9 +30,11 @@ function displayMovies() {
     .map(
       (movie) => ` 
       <div id="movie">
-        <img src="https://image.tmdb.org/t/p/w500/${movie.poster_path}" alt="${
-        movie.title
-      }"/>
+                <img src="${
+                  movie.poster_path
+                    ? "https://image.tmdb.org/t/p/w500/" + movie.poster_path
+                    : "https://cdn-icons-png.flaticon.com/512/2748/2748558.png"
+                }" alt="${movie.title}"/>
         <div class="details">
             <span>${movie.media_type}</span>
             <h2>${movie.title}</h2>
@@ -54,6 +59,28 @@ function displayMovies() {
   });
 }
 
+searchBtn.addEventListener("click", () => {
+  const movieName = document.getElementById("searchBox").value;
+  if (movieName == "") {
+    displayMovies();
+    return;
+  }
+  trending.innerHTML = `Searching for "${movieName}"`;
+  fetch(
+    `https://api.themoviedb.org/3/search/movie?query=${movieName}&api_key=${API_KEY}`
+  )
+    .then((response) =>
+      response.ok ? response.json() : console.error("Fetching Error!")
+    )
+    .then((data) => {
+      console.log(data);
+      movieImage = data.results;
+      displayMovies();
+      setupPagination();
+    })
+    .catch((error) => console.log(error));
+});
+
 function fetchMovieDetail(id) {
   let genres = [];
   fetch(`https://api.themoviedb.org/3/movie/${id}?api_key=${API_KEY}`)
@@ -61,6 +88,7 @@ function fetchMovieDetail(id) {
       response.ok ? response.json() : console.error("Fetching Error!")
     )
     .then((data) => {
+      console.log(data);
       genres = data.genres.map((genre) => genre.name).join(" , ");
       fetch(
         `https://api.themoviedb.org/3/movie/${id}/credits?api_key=${API_KEY}`

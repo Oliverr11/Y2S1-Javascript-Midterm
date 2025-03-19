@@ -7,8 +7,38 @@ body {
   color: white;
   font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
 }
-
-#img-container {
+.form {
+  gap: 10px;
+  display: flex;
+  justify-content: center;
+}
+.form input {
+  width: 30%;
+  height: 50px;
+  font-size: 20px;
+  padding: 0 30px;
+  border: none;
+  outline: none;
+  border-radius: 20px;
+}
+.trending {
+  margin: 50px;
+  display: flex;
+  justify-content: center;
+  font-size: 60px;
+  font-weight: bold;
+  color: #00adb5;
+}
+.form button {
+  border-radius: 20px;
+  width: 100px;
+  height: 50px;
+  border: none;
+  background-color: #872341;
+  color: white;
+  left: 62%;
+}
+#movieDisplay {
   margin: 50px;
   display: flex;
   flex-direction: row;
@@ -16,8 +46,8 @@ body {
   justify-content: center;
   gap: 50px;
 }
-#img-container img {
-  width: 200px;
+#movieDisplay img {
+  width: 220px;
   border-radius: 10px;
 }
 #movie {
