@@ -5,14 +5,32 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="style.css" />
 
-    <title>Document</title>
+    <title>KhodeFilm</title>
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" />
+
+    <link rel="icon" type="image/webp" href="assets/logo.webp" />
   </head>
   <body>
-    <div class="form">
-      <input id="searchBox" type="text" placeholder="Enter movie name" />
-      <button id="searchBtn">Search</button>
+    <div class="backgroundIMG"></div>
+    <div class="nav">
+      <a href="index.html">
+        <img src="assets/myLogo-removebg-preview.png" alt="KhodeFilm Logo" />
+      </a>
+      <div>
+        <input id="searchBox" type="text" placeholder="Enter movie name" />
+        <ul>
+          <li>
+            <p id="filter" href="">Type ▼</p>
+            <ul class="dropdown">
+              <li id="movieFilter">Movie</li>
+              <li id="seriesFilter">Series</li>
+            </ul>
+          </li>
+        </ul>
+        <button id="searchBtn">Search</button>
+      </div>
     </div>
-    <p id="trending" class="trending">Trending Movie</p>
+    <p data-aos="fade-down" id="trending" class="trending">Trending Movie</p>
     <div id="movieDisplay"></div>
     <div class="navigation">
       <button id="prevoius">Prevoius</button>
@@ -20,7 +38,12 @@
       <button id="next">Next</button>
     </div>
 
-    <div id="info" class="info"></div>
+    <div data-aos="zoom-in" id="info" class="info"></div>
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+      AOS.init();
+    </script>
+
     <script src="script.js"></script>
   </body>
 </html>
