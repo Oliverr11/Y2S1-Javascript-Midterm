@@ -16,19 +16,19 @@
       <a href="index.html">
         <img src="assets/myLogo-removebg-preview.png" alt="KhodeFilm Logo" />
       </a>
-      <div>
-        <input id="searchBox" type="text" placeholder="Enter movie name" />
-        <ul>
-          <li>
-            <p id="filter" href="">Type ▼</p>
-            <ul class="dropdown">
-              <li id="movieFilter">Movie</li>
-              <li id="seriesFilter">Series</li>
-            </ul>
-          </li>
-        </ul>
-        <button id="searchBtn">Search</button>
-      </div>
+    </div>
+    <div class="searchForm">
+      <input id="searchBox" type="text" placeholder="Enter movie name" />
+      <ul>
+        <li>
+          <p id="filter" href="">Type ▼</p>
+          <ul class="dropdown">
+            <li id="movieFilter">Movie</li>
+            <li id="seriesFilter">Series</li>
+          </ul>
+        </li>
+      </ul>
+      <button id="searchBtn"><img src="assets/search.png" alt="" /></button>
     </div>
     <p data-aos="fade-down" id="trending" class="trending">Trending Movie</p>
     <div id="movieDisplay"></div>
@@ -37,7 +37,6 @@
       <div class="pagenumbers" id="pagination"></div>
       <button id="next">Next</button>
     </div>
-
     <div data-aos="zoom-in" id="info" class="info"></div>
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
